@@ -1,5 +1,10 @@
 import React from "https://esm.sh/react@18.3.1";
 import { createRoot } from "https://esm.sh/react-dom@18.3.1/client";
+import {
+  Footprints,
+  InfinityIcon,
+  Palette,
+} from "https://esm.sh/lucide-react@0.468.0?deps=react@18.3.1";
 
 const h = React.createElement;
 
@@ -70,12 +75,16 @@ function Header() {
         "nav",
         { "aria-label": "Main navigation", className: "nav-links" },
         h("a", { href: "#approach" }, "Approach"),
-        h("a", { href: "#focus" }, "Focus"),
+        h("a", { href: "#focus" }, "Impact"),
+        h("a", { href: "#products" }, "Products"),
       ),
       h(
         "a",
-        { className: "nav-contact", href: "#contact" },
-        h("span", null, "Get in touch"),
+        {
+          className: "nav-contact",
+          href: "mailto:contact@evgroup.no?subject=Request%20a%20demo",
+        },
+        h("span", null, "Request a demo"),
         h(ArrowIcon),
       ),
     ),
@@ -100,6 +109,27 @@ const focusAreas = [
   },
 ];
 
+const products = [
+  {
+    icon: "visualise",
+    title: "Visualise",
+    type: "Design application",
+    text: "A focused design environment for turning ideas into clear, usable visual concepts.",
+  },
+  {
+    icon: "hyperloop",
+    title: "Hyperloop",
+    type: "Backlog and product management",
+    text: "A smarter way to shape priorities, manage product work, and keep development moving.",
+  },
+  {
+    icon: "anywhere",
+    title: "Anywhere",
+    type: "Agentic coding across devices",
+    text: "A simpler way to work with coding agents from the devices that are already within reach.",
+  },
+];
+
 function FocusCard({ number, text, title }) {
   return h(
     "article",
@@ -107,6 +137,40 @@ function FocusCard({ number, text, title }) {
     h("span", { className: "focus-number" }, number),
     h("h3", null, title),
     h("p", null, text),
+  );
+}
+
+function ProductIcon({ name }) {
+  const icons = {
+    anywhere: Footprints,
+    hyperloop: InfinityIcon,
+    visualise: Palette,
+  };
+
+  return h(icons[name], {
+    "aria-hidden": "true",
+    className: "product-icon",
+    strokeWidth: 1.45,
+  });
+}
+
+function ProductCard({ icon, text, title, type }) {
+  return h(
+    "article",
+    { className: "product-card" },
+    h(
+      "div",
+      { className: "product-card-top" },
+      h("span", { className: "product-status" }, "In development"),
+    ),
+    h("div", { className: "product-icon-shell" }, h(ProductIcon, { name: icon })),
+    h(
+      "div",
+      { className: "product-card-body" },
+      h("p", { className: "product-type" }, type),
+      h("h3", null, title),
+      h("p", { className: "product-text" }, text),
+    ),
   );
 }
 
@@ -127,7 +191,7 @@ function App() {
           h(
             "div",
             { className: "hero-copy" },
-            h("p", { className: "eyebrow" }, "AI product company"),
+            h("p", { className: "eyebrow" }, "Tools for better development"),
             h(
               "h1",
               null,
@@ -141,8 +205,11 @@ function App() {
             ),
             h(
               "a",
-              { className: "primary-link", href: "#approach" },
-              h("span", null, "Explore our approach"),
+              {
+                className: "primary-link",
+                href: "mailto:contact@evgroup.no?subject=Request%20a%20demo",
+              },
+              h("span", null, "Request a demo"),
               h(ArrowIcon),
             ),
           ),
@@ -180,7 +247,6 @@ function App() {
             "div",
             null,
             h("p", { className: "eyebrow" }, "Our approach"),
-            h("p", { className: "section-index" }, "01"),
           ),
           h(
             "div",
@@ -209,13 +275,34 @@ function App() {
           h(
             "div",
             { className: "section-heading" },
-            h("p", { className: "eyebrow" }, "How we work"),
+            h("p", { className: "eyebrow" }, "Where we create impact"),
             h("h2", null, "Practical AI. Measurable impact."),
           ),
           h(
             "div",
             { className: "focus-grid" },
             focusAreas.map((area) => h(FocusCard, { ...area, key: area.number })),
+          ),
+        ),
+      ),
+      h(
+        "section",
+        { className: "products section", id: "products" },
+        h(
+          "div",
+          { className: "container" },
+          h(
+            "div",
+            { className: "section-heading products-heading" },
+            h("p", { className: "eyebrow" }, "Our products"),
+            h("h2", null, "Tools designed to move development forward."),
+          ),
+          h(
+            "div",
+            { className: "product-grid" },
+            products.map((product) =>
+              h(ProductCard, { ...product, key: product.title }),
+            ),
           ),
         ),
       ),
@@ -233,8 +320,11 @@ function App() {
           ),
           h(
             "a",
-            { className: "contact-link", href: "mailto:contact@evgroup.no" },
-            h("span", null, "contact@evgroup.no"),
+            {
+              className: "contact-link",
+              href: "mailto:contact@evgroup.no?subject=Request%20a%20demo",
+            },
+            h("span", null, "Request a demo"),
             h(ArrowIcon),
           ),
         ),
@@ -244,9 +334,16 @@ function App() {
       "footer",
       { className: "site-footer" },
       h(
-      "div",
-      { className: "container footer-layout" },
-        h("p", null, `© ${new Date().getFullYear()} EV Group. All rights reserved.`),
+        "div",
+        { className: "container footer-layout" },
+        h(
+          "div",
+          { className: "footer-details" },
+          h("p", { className: "footer-name" }, "EV-group"),
+          h("p", null, "Oslo, Norway"),
+          h("a", { href: "mailto:contact@evgroup.no" }, "contact@evgroup.no"),
+        ),
+        h("p", null, `© ${new Date().getFullYear()} EV-group. All rights reserved.`),
       ),
     ),
   );
