@@ -117,8 +117,8 @@ const products = [
     text: "A focused design environment for turning ideas into clear, usable visual concepts.",
   },
   {
-    icon: "hyperloop",
-    title: "Hyperloop",
+    icon: "accelerate",
+    title: "Accelerate",
     type: "Backlog and product management",
     text: "A smarter way to shape priorities, manage product work, and keep development moving.",
   },
@@ -143,7 +143,7 @@ function FocusCard({ number, text, title }) {
 function ProductIcon({ name }) {
   const icons = {
     anywhere: Footprints,
-    hyperloop: InfinityIcon,
+    accelerate: InfinityIcon,
     visualise: Palette,
   };
 
